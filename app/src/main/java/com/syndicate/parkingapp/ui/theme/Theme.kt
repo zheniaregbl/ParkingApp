@@ -34,7 +34,7 @@ private val LightColorScheme = lightColorScheme(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ParkingAppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -47,15 +47,15 @@ fun ParkingAppTheme(
         SideEffect {
             val window = (view.context as Activity).window
 
-            window.statusBarColor = Color.Transparent.toArgb()
-            window.navigationBarColor = Color.Transparent.toArgb()
+            window.statusBarColor = GreenButton.toArgb()
+            window.navigationBarColor = GreenButton.toArgb()
 
             WindowCompat
                 .getInsetsController(window, view)
-                .isAppearanceLightStatusBars = !darkTheme
+                .isAppearanceLightStatusBars = darkTheme
             WindowCompat
                 .getInsetsController(window, view)
-                .isAppearanceLightNavigationBars = !darkTheme
+                .isAppearanceLightNavigationBars = darkTheme
         }
     }
 

@@ -36,22 +36,27 @@ class RegistrationViewModel @Inject constructor(
 
             if (registrationToken.success) {
                 sharedPreferences.edit().putString("token", registrationToken.token).apply()
+                sharedPreferences.edit().putBoolean("is_registered", true).apply()
+
                 state.update { it.copy(
                     enter = true
                 ) }
-            } else {
-                Log.d("registration", "no")
             }
         }
     }
 
     private fun authorization(email: String, password: String) {
         viewModelScope.launch(Dispatchers.Main) {
-            Log.d("registration", "${repository.authorization(email, password)}")
+            val authorizationToken = repository.authorization(email, password)
 
-            state.update { it.copy(
-                enter = repository.authorization(email, password)
-            ) }
+            if (authorizationToken.success) {
+                sharedPreferences.edit().putString("token", authorizationToken.token).apply()
+                sharedPreferences.edit().putBoolean("is_registered", true).apply()
+
+                state.update { it.copy(
+                    enter = true
+                ) }
+            }
         }
     }
 }

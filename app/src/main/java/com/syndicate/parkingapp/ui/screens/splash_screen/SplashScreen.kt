@@ -31,7 +31,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
-    isFirstStart: Boolean = true,
+    isRegistered: Boolean = true,
     navigateToMap: () -> Unit = { },
     navigateToRegistration: () -> Unit = { }
 ) {
@@ -58,7 +58,7 @@ fun SplashScreen(
 
             delay(1000L)
 
-            if (isFirstStart) navigateToRegistration() else navigateToMap()
+            if (!isRegistered) navigateToRegistration() else navigateToMap()
         }
     }
 
